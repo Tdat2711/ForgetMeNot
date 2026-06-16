@@ -1,0 +1,83 @@
+<!-- frontend/pages/404.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Trang không tồn tại - ForgetMeNot</title>
+    
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo.svg">
+    
+    <style>
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .error-content {
+            max-width: 500px;
+        }
+        
+        .error-code {
+            font-size: 120px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: var(--space-4);
+        }
+        
+        .error-icon {
+            font-size: 48px;
+            margin-bottom: var(--space-6);
+            color: var(--text-muted);
+        }
+        
+        .error-content h1 {
+            font-size: var(--font-size-3xl);
+            margin-bottom: var(--space-4);
+        }
+        
+        .error-content p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-8);
+            font-size: var(--font-size-lg);
+        }
+        
+        .error-actions {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <div class="error-page">
+        <div class="error-content">
+            <div class="error-icon">🧠</div>
+            <div class="error-code">404</div>
+            <h1>Oops! Trang không tồn tại</h1>
+            <p>Có vẻ như bạn đã lạc đường. Trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển.</p>
+            <div class="error-actions">
+                <a href="dashboard.html" class="btn btn-primary">
+                    <i class="fas fa-home"></i>
+                    Về Dashboard
+                </a>
+                <a href="decks.html" class="btn btn-outline">
+                    <i class="fas fa-layer-group"></i>
+                    Kho Thẻ
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
