@@ -1,0 +1,241 @@
+// backend/prisma/schema.prisma
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ==================== USER MODEL ====================
+model User {
+  id               String   @id @default(uuid())
+  email            String   @unique
+  username         String   @unique
+  passwordHash     String
+  avatar           String   @default("/assets/images/default-avatar.png")
+  role             String   @default("STUDENT")
+  
+  // Preferences
+  darkMode         Boolean  @default(true)
+  language         String   @default("vi")
+  emailNotifications Boolean @default(true)
+  pushNotifications  Boolean @default(false)
+  studyReminders   Boolean  @default(true)
+  twoFactorEnabled Boolean  @default(false)
+  twoFactorSecret  String?
+  
+  // Timestamps
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  lastLoginAt      DateTime?
+  
+  // Relations
+  decks            Deck[]
+  studyProgress    StudyProgress[]
+  dailyStats       DailyStats[]
+  sessions         Session[]
+  reviews          Review[]
+  
+  @@index([email])
+  @@index([username])
+  @@map("users")
+}
+
+// ==================== DECK MODEL ====================
+model Deck {
+  id            String     @id @default(uuid())
+  userId        String
+  name          String
+  description   String?
+  color         String     @default("#3B82F6")
+  icon          String     @default("📚")
+  
+  // States
+  isFavorite    Boolean    @default(false)
+  isPublic      Boolean    @default(false)
+  isArchived    Boolean    @default(false)
+  
+  // Exam
+  examDate      DateTime?
+  cramMode      Boolean    @default(false)
+  
+  // Stats
+  cardCount     Int        @default(0)
+  newCards      Int        @default(0)
+  learningCards Int        @default(0)
+  reviewCards   Int        @default(0)
+  lastStudied   DateTime?
+  
+  // Timestamps
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  
+  // Relations
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  flashcards    Flashcard[]
+  studyProgress StudyProgress[]
+  
+  @@index([userId])
+  @@index([userId, isFavorite])
+  @@map("decks")
+}
+
+// ==================== FLASHCARD MODEL ====================
+model Flashcard {
+  id            String     @id @default(uuid())
+  deckId        String
+  
+  // Content
+  frontText     String
+  frontHtml     String?
+  backText      String
+  backHtml      String?
+  hint          String?
+  
+  // SRS Data (Spaced Repetition System)
+  difficulty    String     @default("MEDIUM")
+  easeFactor    Float      @default(2.5)
+  interval      Int        @default(0)
+  repetitions   Int        @default(0)
+  nextReview    DateTime   @default(now())
+  lastReview    DateTime?
+  
+  // Stats
+  totalReviews  Int        @default(0)
+  correctCount  Int        @default(0)
+  incorrectCount Int       @default(0)
+  
+  // AI Generated
+  isAiGenerated Boolean    @default(false)
+  aiConfidence  Float?
+  
+  // Source tracking
+  sourceFile    String?
+  sourcePage    Int?
+  
+  // Timestamps
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  
+  // Relations
+  deck          Deck       @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  reviews       Review[]
+  
+  @@index([deckId])
+  @@index([nextReview])
+  @@index([deckId, nextReview])
+  @@map("flashcards")
+}
+
+// ==================== STUDY PROGRESS ====================
+model StudyProgress {
+  id            String     @id @default(uuid())
+  userId        String
+  deckId        String
+  
+  cardsStudied  Int        @default(0)
+  cardsLearned  Int        @default(0)
+  totalReviews  Int        @default(0)
+  averageRetention Float   @default(0)
+  studyTimeMinutes Int     @default(0)
+  
+  currentStreak Int        @default(0)
+  longestStreak Int        @default(0)
+  lastStudyDate DateTime?
+  
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deck          Deck       @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, deckId])
+  @@index([userId])
+  @@map("study_progress")
+}
+
+// ==================== REVIEW MODEL ====================
+model Review {
+  id            String     @id @default(uuid())
+  userId        String
+  cardId        String
+  
+  quality       Int
+  easeFactor    Float
+  interval      Int
+  timeSpent     Int        @default(0)
+  
+  reviewedAt    DateTime   @default(now())
+  nextReview    DateTime
+  
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  card          Flashcard  @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, reviewedAt])
+  @@index([cardId])
+  @@map("reviews")
+}
+
+// ==================== DAILY STATS ====================
+model DailyStats {
+  id            String     @id @default(uuid())
+  userId        String
+  date          DateTime
+  
+  cardsStudied  Int        @default(0)
+  cardsLearned  Int        @default(0)
+  reviewsCompleted Int     @default(0)
+  studyTimeMinutes Int     @default(0)
+  newCardsLearned Int      @default(0)
+  retentionRate Float      @default(0)
+  
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, date])
+  @@index([userId, date])
+  @@map("daily_stats")
+}
+
+// ==================== SESSION MODEL ====================
+model Session {
+  id            String     @id @default(uuid())
+  userId        String
+  token         String     @unique
+  refreshToken  String?
+  
+  ipAddress     String?
+  userAgent     String?
+  deviceType    String?
+  
+  isValid       Boolean    @default(true)
+  expiresAt     DateTime
+  lastActivity  DateTime   @default(now())
+  
+  createdAt     DateTime   @default(now())
+  
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([token])
+  @@map("sessions")
+}
+
+// ==================== NOTIFICATION MODEL ====================
+model Notification {
+  id            String     @id @default(uuid())
+  userId        String
+  type          String
+  title         String
+  message       String
+  isRead        Boolean    @default(false)
+  actionUrl     String?
+  
+  createdAt     DateTime   @default(now())
+  
+  @@index([userId, isRead])
+  @@map("notifications")
+}
