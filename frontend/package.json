@@ -1,0 +1,12 @@
+{
+  "name": "forgetmenot-frontend",
+  "version": "1.0.0",
+  "description": "ForgetMeNot Frontend",
+  "scripts": {
+    "start": "live-server --port=3000 --host=localhost",
+    "dev": "live-server --port=3000 --host=localhost --open=/pages/login.html"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

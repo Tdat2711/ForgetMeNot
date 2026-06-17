@@ -1,0 +1,277 @@
+/* frontend/css/pages/decks.css */
+.filters-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+}
+
+.filters-bar .search-input-wrapper {
+    flex: 1;
+    max-width: 400px;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.filter-group .form-select {
+    min-width: 180px;
+}
+
+/* Deck Card (List View) */
+.decks-grid.list-view .deck-card {
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.decks-grid.list-view .deck-card-header {
+    width: 200px;
+    min-width: 200px;
+    height: 100px;
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+
+.decks-grid.list-view .deck-card-body {
+    flex: 1;
+    padding: var(--space-4) var(--space-6);
+}
+
+.decks-grid.list-view .deck-exam-info {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+.deck-exam-info {
+    display: none;
+}
+
+.decks-grid.list-view .deck-exam-info {
+    display: flex;
+}
+
+/* Favorite Badge */
+.favorite-badge {
+    position: absolute;
+    top: var(--space-2);
+    left: var(--space-2);
+    font-size: 16px;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: var(--space-12) var(--space-4);
+}
+
+.empty-state i {
+    font-size: 64px;
+    color: var(--text-muted);
+    margin-bottom: var(--space-4);
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-2);
+}
+
+.empty-state p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-6);
+}
+
+.empty-actions {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-8);
+}
+
+.pagination-ellipsis {
+    color: var(--text-muted);
+    padding: 0 var(--space-2);
+}
+
+/* Preview Cards (AI) */
+.preview-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.preview-card {
+    display: flex;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    align-items: flex-start;
+}
+
+.preview-card-number {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    min-width: 30px;
+}
+
+.preview-card-content {
+    flex: 1;
+}
+
+.preview-question,
+.preview-answer {
+    margin-bottom: var(--space-2);
+    font-size: var(--font-size-sm);
+}
+
+.preview-question strong,
+.preview-answer strong {
+    color: var(--text-muted);
+    margin-right: var(--space-2);
+}
+
+.preview-hint {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.preview-card-actions {
+    display: flex;
+    gap: var(--space-1);
+    flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .filters-bar {
+        flex-direction: column;
+    }
+    
+    .filters-bar .search-input-wrapper {
+        max-width: 100%;
+    }
+    
+    .filter-group {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .decks-grid.list-view .deck-card-header {
+        width: 100px;
+        min-width: 100px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* frontend/css/pages/decks.css (bổ sung) */
+
+/* Nút xem thẻ */
+.deck-card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+.deck-card-actions .btn {
+    flex: 1;
+    justify-content: center;
+}
+
+/* Đảm bảo card không bị tràn */
+.deck-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+.deck-card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+.deck-card-stats {
+    margin-top: auto;
+}
+
+/* AI File Content */
+.ai-file-content {
+    background: var(--bg-primary);
+    border-radius: 8px;
+    padding: 16px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    margin: 12px 0;
+    white-space: pre-wrap;
+    font-family: monospace;
+    font-size: 14px;
+}
+.ai-flashcard-count {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0;
+}
+.ai-flashcard-count label {
+    font-weight: 500;
+}
+.ai-flashcard-count input {
+    width: 80px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-input);
+    color: var(--text-primary);
+}
+
+/* Responsive modal */
+@media (max-width: 600px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    .create-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+
+
+.deck-card-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.deck-card-actions .btn { flex: 1; justify-content: center; }

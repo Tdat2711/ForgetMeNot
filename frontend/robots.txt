@@ -1,0 +1,35 @@
+# ForgetMeNot Robots.txt
+# https://forgetmenot.com/robots.txt
+
+User-agent: *
+Allow: /
+Allow: /pages/
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+
+# Không cho index các đường dẫn API và tài nguyên nội bộ
+Disallow: /api/
+Disallow: /components/
+Disallow: /js/config/
+Disallow: /js/services/
+
+# Không cho index ảnh mặc định
+Disallow: /assets/images/default-avatar.svg
+
+# Crawl delay (giây)
+Crawl-delay: 10
+
+# Sitemap
+Sitemap: https://forgetmenot.com/sitemap.xml
+
+# Cho phép Googlebot truy cập tất cả
+User-agent: Googlebot
+Allow: /
+
+# Chặn các bot xấu
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /

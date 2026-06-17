@@ -1,0 +1,75 @@
+<!-- frontend/components/flashcard.html -->
+<template id="flashcardTemplate">
+    <div class="flashcard-wrapper">
+        <div class="flashcard">
+            <!-- Mặt trước -->
+            <div class="flashcard-face flashcard-front">
+                <div class="flashcard-header">
+                    <span class="card-number">#1</span>
+                    <span class="card-difficulty badge hidden">Trung bình</span>
+                </div>
+                <div class="flashcard-content">
+                    <div class="card-question">Câu hỏi sẽ hiển thị ở đây</div>
+                </div>
+                <div class="flashcard-footer">
+                    <span class="flip-hint">
+                        <i class="fas fa-sync-alt fa-spin"></i>
+                        Nhấn Space hoặc Click để lật thẻ
+                    </span>
+                </div>
+            </div>
+
+            <!-- Mặt sau -->
+            <div class="flashcard-face flashcard-back">
+                <div class="flashcard-header">
+                    <span class="card-number">Đáp án</span>
+                    <button class="btn-icon btn-sm edit-card-btn" title="Chỉnh sửa">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+                <div class="flashcard-content">
+                    <div class="card-answer">Đáp án sẽ hiển thị ở đây</div>
+                </div>
+                <div class="flashcard-footer">
+                    <button class="btn btn-sm btn-ghost show-hint-btn">
+                        <i class="fas fa-lightbulb"></i>
+                        Hiện gợi ý
+                    </button>
+                    <span class="hint-text hidden">Gợi ý sẽ hiển thị ở đây</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nút đánh giá -->
+        <div class="rating-buttons hidden">
+            <button class="rate-btn rate-again" data-quality="0">
+                <i class="fas fa-redo"></i>
+                <div class="rate-info">
+                    <strong>Quên</strong>
+                    <small>&lt; 1 phút</small>
+                </div>
+            </button>
+            <button class="rate-btn rate-hard" data-quality="1">
+                <i class="fas fa-meh"></i>
+                <div class="rate-info">
+                    <strong>Khó</strong>
+                    <small>&lt; 10 phút</small>
+                </div>
+            </button>
+            <button class="rate-btn rate-good" data-quality="3">
+                <i class="fas fa-check"></i>
+                <div class="rate-info">
+                    <strong>Tốt</strong>
+                    <small>1 ngày</small>
+                </div>
+            </button>
+            <button class="rate-btn rate-easy" data-quality="5">
+                <i class="fas fa-star"></i>
+                <div class="rate-info">
+                    <strong>Dễ</strong>
+                    <small>3 ngày</small>
+                </div>
+            </button>
+        </div>
+    </div>
+</template>

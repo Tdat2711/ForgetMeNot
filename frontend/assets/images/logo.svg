@@ -1,0 +1,47 @@
+<!-- frontend/assets/images/logo.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E293B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0F172A;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="95" fill="url(#bgGradient)" stroke="#334155" stroke-width="2"/>
+  
+  <!-- Brain Icon -->
+  <g transform="translate(50, 40)">
+    <!-- Left Hemisphere -->
+    <path d="M50,20 C50,10 40,0 25,0 C10,0 0,15 0,35 C0,55 10,70 25,75 C15,75 5,80 5,90 C5,100 15,110 25,110 L50,110 Z" 
+          fill="url(#brainGradient)" opacity="0.9"/>
+    
+    <!-- Right Hemisphere -->
+    <path d="M50,20 C50,10 60,0 75,0 C90,0 100,15 100,35 C100,55 90,70 75,75 C85,75 95,80 95,90 C95,100 85,110 75,110 L50,110 Z" 
+          fill="url(#brainGradient)" opacity="0.9"/>
+    
+    <!-- Neural Connections -->
+    <circle cx="30" cy="30" r="3" fill="white" opacity="0.8"/>
+    <circle cx="70" cy="25" r="3" fill="white" opacity="0.8"/>
+    <circle cx="50" cy="50" r="3" fill="white" opacity="0.8"/>
+    <circle cx="25" cy="60" r="2" fill="white" opacity="0.6"/>
+    <circle cx="75" cy="55" r="2" fill="white" opacity="0.6"/>
+    <circle cx="40" cy="80" r="2" fill="white" opacity="0.6"/>
+    <circle cx="60" cy="75" r="2" fill="white" opacity="0.6"/>
+    
+    <!-- Connection Lines -->
+    <line x1="30" y1="30" x2="50" y2="50" stroke="white" stroke-width="0.5" opacity="0.3"/>
+    <line x1="70" y1="25" x2="50" y2="50" stroke="white" stroke-width="0.5" opacity="0.3"/>
+    <line x1="50" y1="50" x2="25" y2="60" stroke="white" stroke-width="0.5" opacity="0.3"/>
+    <line x1="50" y1="50" x2="75" y2="55" stroke="white" stroke-width="0.5" opacity="0.3"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="100" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#3B82F6">
+    ForgetMeNot
+  </text>
+</svg>

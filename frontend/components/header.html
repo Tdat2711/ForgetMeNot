@@ -1,0 +1,134 @@
+<!-- frontend/components/header.html -->
+<header class="top-header">
+    <div class="header-left">
+        <button class="btn-icon mobile-menu-btn" id="mobileSidebarToggle" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-breadcrumb">
+            <h1 class="header-title" id="pageTitle">Dashboard</h1>
+            <nav class="breadcrumb-nav" id="breadcrumbNav">
+                <a href="dashboard.html">Home</a>
+                <span>/</span>
+                <span>Dashboard</span>
+            </nav>
+        </div>
+    </div>
+
+    <div class="header-center">
+        <div class="global-search">
+            <i class="fas fa-search"></i>
+            <input type="text" 
+                   class="form-input" 
+                   id="globalSearch" 
+                   placeholder="Tìm kiếm bộ thẻ, thẻ ghi nhớ... (Ctrl+K)"
+                   autocomplete="off">
+            <kbd class="search-shortcut">⌘K</kbd>
+        </div>
+    </div>
+
+    <div class="header-right">
+        <!-- Create Button -->
+        <button class="btn btn-primary" id="headerCreateBtn">
+            <i class="fas fa-plus"></i>
+            <span class="btn-text">Tạo mới</span>
+        </button>
+
+        <!-- Notifications -->
+        <div class="notification-wrapper">
+            <button class="btn-icon" id="headerNotificationsBtn" aria-label="Thông báo">
+                <i class="fas fa-bell"></i>
+                <span class="badge hidden" id="headerNotificationBadge">0</span>
+            </button>
+            
+            <!-- Notifications Dropdown -->
+            <div class="dropdown hidden" id="notificationsDropdown">
+                <div class="dropdown-header">
+                    <h4>Thông báo</h4>
+                    <button class="btn-text btn-sm" onclick="notifications.markAllRead()">
+                        Đánh dấu đã đọc
+                    </button>
+                </div>
+                <div class="dropdown-body" id="notificationsList">
+                    <div class="dropdown-empty">
+                        <i class="fas fa-bell-slash"></i>
+                        <p>Không có thông báo mới</p>
+                    </div>
+                </div>
+                <div class="dropdown-footer">
+                    <a href="settings.html#notifications" class="btn-text btn-sm">
+                        Cài đặt thông báo
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Menu -->
+        <div class="user-menu-wrapper">
+            <button class="user-menu-trigger" id="userMenuTrigger">
+                <img src="../assets/images/default-avatar.png" 
+                     alt="Avatar" 
+                     class="user-avatar-small"
+                     id="headerAvatar">
+                <span class="user-name-text" id="headerUsername">User</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+
+            <!-- User Dropdown -->
+            <div class="dropdown hidden" id="userDropdown">
+                <div class="dropdown-user-info">
+                    <img src="../assets/images/default-avatar.png" alt="Avatar" class="dropdown-avatar">
+                    <div>
+                        <strong id="dropdownUsername">User</strong>
+                        <span id="dropdownEmail">user@email.com</span>
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <a href="settings.html" class="dropdown-item">
+                    <i class="fas fa-user-cog"></i>
+                    Cài đặt tài khoản
+                </a>
+                <a href="statistics.html" class="dropdown-item">
+                    <i class="fas fa-chart-bar"></i>
+                    Thống kê
+                </a>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" onclick="app.toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                    <span id="themeToggleText">Chế độ sáng</span>
+                </button>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item danger" onclick="app.logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Đăng xuất
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Global Search Results -->
+<div class="search-overlay hidden" id="searchOverlay">
+    <div class="search-modal">
+        <div class="search-input-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" class="search-input-large" id="searchModalInput" 
+                   placeholder="Tìm kiếm..." autofocus>
+            <kbd>ESC</kbd>
+        </div>
+        <div class="search-results" id="searchResults">
+            <div class="search-section">
+                <h5>Bộ thẻ</h5>
+                <div id="deckSearchResults"></div>
+            </div>
+            <div class="search-section">
+                <h5>Thẻ ghi nhớ</h5>
+                <div id="cardSearchResults"></div>
+            </div>
+        </div>
+        <div class="search-footer">
+            <span><kbd>↑</kbd> <kbd>↓</kbd> Điều hướng</span>
+            <span><kbd>Enter</kbd> Mở</span>
+            <span><kbd>ESC</kbd> Đóng</span>
+        </div>
+    </div>
+</div> 

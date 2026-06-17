@@ -1,0 +1,53 @@
+<!-- frontend/components/deck-card.html -->
+<template id="deckCardTemplate">
+    <div class="deck-card" data-deck-id="">
+        <!-- Header với màu sắc -->
+        <div class="deck-card-header" style="background: linear-gradient(135deg, #3B82F6, #3B82F6dd)">
+            <!-- Icon bộ thẻ -->
+            <span class="deck-icon">📚</span>
+            
+            <!-- Badge yêu thích -->
+            <span class="favorite-badge hidden">⭐</span>
+            
+            <!-- Badge ngày thi khẩn cấp -->
+            <span class="urgent-badge hidden">🚨 Còn 0 ngày</span>
+            
+            <!-- Menu 3 chấm -->
+            <button class="deck-menu-btn" onclick="event.stopPropagation()">
+                <i class="fas fa-ellipsis-v"></i>
+            </button>
+        </div>
+        
+        <!-- Nội dung -->
+        <div class="deck-card-body">
+            <h3 class="deck-name">Tên bộ thẻ</h3>
+            <p class="deck-description">Mô tả bộ thẻ...</p>
+            
+            <!-- Thông tin thống kê -->
+            <div class="deck-card-stats">
+                <span class="stat-cards">
+                    <i class="fas fa-clone"></i>
+                    <span class="card-count">0</span> thẻ
+                </span>
+                <span class="stat-last-studied">
+                    <i class="fas fa-clock"></i>
+                    <span class="last-studied-text">Chưa học</span>
+                </span>
+            </div>
+            
+            <!-- Ngày thi (nếu có) -->
+            <div class="deck-exam-info hidden">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="exam-date-text"></span>
+            </div>
+        </div>
+        
+        <!-- Progress bar -->
+        <div class="deck-progress hidden">
+            <div class="progress-bar small">
+                <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <span class="progress-text">0%</span>
+        </div>
+    </div>
+</template>

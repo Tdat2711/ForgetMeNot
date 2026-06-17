@@ -1,0 +1,218 @@
+<!-- frontend/pages/deck-detail.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Bộ Thẻ - ForgetMeNot</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/pages/deck-detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/logo.svg">
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="sidebar-logo">
+                    <i class="fas fa-brain"></i>
+                    <span>ForgetMeNot</span>
+                </a>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="decks.html" class="nav-item active">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Kho Thẻ</span>
+                </a>
+                <a href="study.html" class="nav-item">
+                    <i class="fas fa-book-open"></i>
+                    <span>Ôn Tập</span>
+                </a>
+                <a href="statistics.html" class="nav-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Thống Kê</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Cài Đặt</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <img src="../assets/images/default-avatar.png" alt="Avatar" class="user-avatar">
+                    <div class="user-info">
+                        <span class="user-name" id="sidebarUsername">User</span>
+                        <span class="user-email" id="sidebarEmail">user@email.com</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="decks.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Quay lại Kho Thẻ
+                </a>
+                <span>/</span>
+                <span id="deckNameBreadcrumb">Đang tải...</span>
+            </div>
+
+            <!-- Deck Header -->
+            <header class="deck-header" id="deckHeader">
+                <div class="skeleton" style="height: 200px;"></div>
+            </header>
+
+            <!-- Deck Stats -->
+            <section class="deck-stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value" id="totalCards">0</span>
+                    <span class="stat-label">Tổng số thẻ</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="newCards">0</span>
+                    <span class="stat-label">Thẻ mới</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="learningCards">0</span>
+                    <span class="stat-label">Đang học</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="masteredCards">0</span>
+                    <span class="stat-label">Đã thuần thục</span>
+                </div>
+            </section>
+
+            <!-- Flashcards List -->
+            <section class="flashcards-section">
+                <div class="section-header">
+                    <h2>Thẻ Ghi Nhớ</h2>
+                    <div class="section-actions">
+                        <div class="search-input-wrapper">
+                            <i class="fas fa-search"></i>
+                            <input type="text" class="form-input" id="cardSearch"
+                                   placeholder="Tìm kiếm thẻ...">
+                        </div>
+                        <button class="btn btn-primary" id="addCardBtn">
+                            <i class="fas fa-plus"></i>
+                            Thêm Thẻ
+                        </button>
+                    </div>
+                </div>
+
+                <div class="cards-list" id="cardsList">
+                    <!-- Cards loaded dynamically -->
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state hidden" id="emptyCards">
+                    <i class="fas fa-clone"></i>
+                    <h3>Chưa có thẻ nào</h3>
+                    <p>Thêm thẻ mới hoặc sử dụng AI để tạo tự động</p>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="cardsPagination"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add/Edit Card Modal -->
+    <div class="modal-overlay hidden" id="cardModal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3 class="modal-title" id="cardModalTitle">Thêm Thẻ Mới</h3>
+                <button class="modal-close" onclick="document.getElementById('cardModal').classList.add('hidden')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="cardForm">
+                    <div class="form-group">
+                        <label class="form-label">Câu hỏi (Mặt trước) <span class="text-danger">*</span></label>
+                        <textarea class="form-textarea" id="cardFront"
+                                  placeholder="Nhập câu hỏi. Hỗ trợ LaTeX: $E=mc^2$"
+                                  rows="4" required></textarea>
+                        <span class="form-hint">
+                            <i class="fas fa-info-circle"></i>
+                            Hỗ trợ công thức toán học với LaTeX: $...$ hoặc $$...$$
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Đáp án (Mặt sau) <span class="text-danger">*</span></label>
+                        <textarea class="form-textarea" id="cardBack"
+                                  placeholder="Nhập đáp án..."
+                                  rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Gợi ý (tùy chọn)</label>
+                            <input type="text" class="form-input" id="cardHint"
+                                   placeholder="Gợi ý ngắn giúp nhớ câu trả lời">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Độ khó</label>
+                            <select class="form-select" id="cardDifficulty">
+                                <option value="MEDIUM">Trung bình</option>
+                                <option value="EASY">Dễ</option>
+                                <option value="HARD">Khó</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Preview -->
+                    <div class="card-preview" id="cardPreview">
+                        <h4>Xem trước</h4>
+                        <div class="mini-flashcard">
+                            <div class="mini-front">
+                                <strong>Q:</strong> <span id="previewFront"></span>
+                            </div>
+                            <div class="mini-back">
+                                <strong>A:</strong> <span id="previewBack"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary"
+                        onclick="document.getElementById('cardModal').classList.add('hidden')">
+                    Hủy
+                </button>
+                <button class="btn btn-primary" id="saveCardBtn">
+                    <i class="fas fa-save"></i>
+                    Lưu Thẻ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="../js/config/config.js"></script>
+    <script src="../js/utils/helpers.js"></script>
+    <script src="../js/services/api.service.js"></script>
+    <script src="../js/pages/deck-detail.js"></script>
+</body>
+</html>

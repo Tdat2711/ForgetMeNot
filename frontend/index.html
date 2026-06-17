@@ -1,0 +1,23 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ForgetMeNot - Ứng dụng Flashcard thông minh với AI và Spaced Repetition">
+    <title>ForgetMeNot - Học thông minh hơn</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+</head>
+<body>
+    <script>
+        // Tự động chuyển hướng đến trang phù hợp
+        const token = localStorage.getItem('forgetmenot_token');
+        if (token) {
+            window.location.href = 'pages/dashboard.html';
+        } else {
+            window.location.href = 'pages/login.html';
+        }
+    </script>
+</body>
+</html>

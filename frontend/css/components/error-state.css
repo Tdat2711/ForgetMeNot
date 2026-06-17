@@ -1,0 +1,41 @@
+/* frontend/css/components/error-state.css */
+.error-state {
+    text-align: center;
+    padding: var(--space-12) var(--space-4);
+}
+
+.error-icon {
+    font-size: 64px;
+    color: var(--color-warning);
+    margin-bottom: var(--space-4);
+}
+
+.error-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-2);
+}
+
+.error-message {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-6);
+}
+
+.error-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-3);
+}
+
+/* Confirm Dialog */
+.confirm-icon {
+    font-size: 48px;
+    color: var(--color-warning);
+    margin-bottom: var(--space-4);
+}
+
+.confirm-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+}
